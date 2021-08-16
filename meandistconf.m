@@ -11,6 +11,9 @@ OUTPUTS:
 
 mdc     - mean distance to conformity metric, scalar
 
+PLEASE NOTE: the use of parallel for loops will increase the speed of this
+execution, but may be slower the first time you run it.
+
 %}
 
     if ~isequal(size(A), size(B))
@@ -45,7 +48,7 @@ mdc     - mean distance to conformity metric, scalar
         
         % Calculate MDC
         dists = zeros(size(PQ,1),1); % initialize array of distances for each query point
-        for i=1:size(PQ,1)
+        parfor i=1:size(PQ,1)
             temp = sqrt(sum((P-PQ(i,:)).^2,2));
             dists(i) = min(temp(:));
         end
